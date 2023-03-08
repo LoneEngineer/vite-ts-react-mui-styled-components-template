@@ -19,8 +19,12 @@ export const MyTheme: ThemeOptions = {
       color: "aqua",
       fontSize: 24
     },
+    h5: {
+      fontSize: 42,
+      color: "greenyellow"
+    },
     h6: {
-      fontSize: 32
+      fontSize: 36,
     }
   }
 }

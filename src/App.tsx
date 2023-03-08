@@ -1,19 +1,55 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {TButton} from '@components/TButton'
-import {Typography} from "@mui/material";
+import {GlobalStyles, Theme, Typography} from "@mui/material";
+import {createGlobalStyle, css} from "styled-components/macro";
 
-const baseUrl: string = import.meta.env.BASE_URL
-const mode: string = import.meta.env.MODE
-const devMode: boolean = import.meta.env.DEV
-const apiUrl: string = import.meta.env.VITE_PUBLIC_URL
+// todo: how to override DefaultTheme types correcly for IDEA ??? (see also styled.d.ts)
+const StyledGlobalStyles = createGlobalStyle`
+  ${({theme}) => css`
+    .MuiTypography-h1 {
+      font-size: 24px;
+      background-color: ${theme.palette.success.main};
+    }
+  `}
+`
+
+const H2Style = (theme: Theme) => css`
+    .MuiTypography-h2 {
+      background-color: ${theme.palette.background.paper};
+      ${({theme}) => ({ fontSize: theme.typography.h6.fontSize })};
+      font-size: 28px;
+    }
+  `
+
+const H3Style = (theme: Theme) => css`
+    .MuiTypography-h3 {
+      font-size: 32px;
+      background-color: ${theme.palette.background.default};
+      border-style: dashed;
+      border-width: 2px;
+      border-color: ${theme.palette.success.main};
+    }
+  `
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
+      <StyledGlobalStyles /> {/* h1 styled */}
+      <GlobalStyles styles={(theme) => H2Style(theme)}/>
+      <GlobalStyles styles={H3Style}/>
+      <GlobalStyles styles={(theme) => ({
+        '.MuiTypography-h4': {
+          backgroundColor: theme.palette.error.main,
+          fontSize: theme.typography.h6.fontSize,
+          borderStyle: 'dashed',
+          borderColor: '#646cff',
+          borderWidth: '2px'
+        }
+      })} />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
@@ -25,16 +61,19 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <Typography variant='h1'>
-          H1 themed
+          H1 via createGlobalStyle (styled-components)
         </Typography>
-        <Typography id="h2" variant='h2'>
-          H2 themed - base: {baseUrl}, mode: {mode}, dev: {devMode.toString()}, api: {apiUrl}
+        <Typography variant='h2'>
+          H2 themed via GlobalStyle with function
         </Typography>
-        <Typography id="h3" variant='h3'>
-          H3 themed in global
+        <Typography variant='h3'>
+          H3 themed via GlobalStyle with functional parameter
         </Typography>
-        <Typography id="h4" variant='h4'>
-          H4 themed inline
+        <Typography variant='h4'>
+          H4 themed via inline
+        </Typography>
+        <Typography variant='h5'>
+          H5 configured by theme
         </Typography>
         <TButton onClick={() => setCount((count) => count + 1)}>
           count is {count}

@@ -2,58 +2,25 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import {createTheme, CssBaseline, GlobalStyles, StyledEngineProvider, Theme, ThemeProvider} from "@mui/material";
+import {createTheme, CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
 import {MyTheme} from "./MyTheme";
-import {StyledGlobalStyles} from "./StyledGlobalStyles";
-import {css} from "styled-components/macro";
+import {windowBoolean, windowString} from "./utils";
 
-const muiGlobalStyles = (theme: Theme) => css`
-    #h3 {
-      background-color: ${theme.palette.background.default};
-      border-style: dashed;
-      border-width: 2px;
-      border-color: ${theme.palette.success.main};
-    }
-  `
+const baseUrl: string = import.meta.env.BASE_URL
+const mode: string = import.meta.env.MODE
+const devMode: boolean = import.meta.env.DEV
+const prodMode: boolean = import.meta.env.PROD
+const apiUrl: string = windowString('VITE_API_URL') ?? import.meta.env.VITE_API_URL ?? 'n/a'
+const debugTranslations: boolean = windowBoolean('VITE_DEBUG_I18N') ?? import.meta.env.VITE_DEBUG_I18N ?? false
 
-// this cause error with Emotion involved
-const muiGlobalStyles2 = (theme: Theme) => css`
-    #h2 {
-      background-color: ${theme.palette.background.paper};
-      ${({theme}) => ({ fontSize: theme.typography.h6.fontSize })};
-      font-size: 44px;
-    }
-  `
-
+console.log('Configuration:', {
+  baseUrl, mode, devMode, prodMode, apiUrl, debugTranslations, meta: import.meta.env
+})
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CssBaseline />
     <ThemeProvider theme={createTheme(MyTheme)}>
       <StyledEngineProvider injectFirst>
-        {/* does not compile - says 'no palette.typography prop under theme' */
-        <StyledGlobalStyles />
-        /**/}
-        {/**/
-        <GlobalStyles styles={muiGlobalStyles}/>
-        /**/}
-        {/* compile, but works only for non-interpolated fields */
-          <GlobalStyles styles={(theme) => muiGlobalStyles2(theme)}/>
-          /**/}
-        {/* works fine:*/
-        <GlobalStyles styles={(theme) => {
-          const css = {
-          '#h4': {
-            backgroundColor: theme.palette.error.main,
-            fontSize: theme.typography.h6.fontSize,
-            borderStyle: 'dashed',
-            borderColor: '#646cff',
-            borderWidth: '2px'
-          }}
-          console.log('built-in', css)
-          return css;
-          }
-        } />
-        /**/}
         <App />
       </StyledEngineProvider>
     </ThemeProvider>
