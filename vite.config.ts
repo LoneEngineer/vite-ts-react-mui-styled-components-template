@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import macrosPlugin from "vite-plugin-babel-macros"
-import * as path from 'path'
+import macrosPlugin from 'vite-plugin-babel-macros'
 import dts from 'vite-plugin-dts'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +14,7 @@ export default defineConfig({
         ]
       }
     }),
+    tsconfigPaths(),
     macrosPlugin(),
     dts({
       insertTypesEntry: true,
@@ -22,9 +23,4 @@ export default defineConfig({
   server: {
     port: 3001,
   },
-  resolve: {
-    alias: [
-      { find: '@components', replacement: path.resolve(__dirname, 'src/components') }
-    ]
-  }
 })
