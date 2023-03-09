@@ -2,7 +2,7 @@ import {useState} from 'react'
 import reactLogo from '@assets/react.svg'
 import {TButton} from '@components/TButton'
 import {GlobalStyles, Stack, Switch, Theme, Typography} from '@mui/material'
-import {createGlobalStyle, css} from 'styled-components/macro'
+import {createGlobalStyle, css} from 'styled-components'
 import {useTranslation} from 'react-i18next'
 
 // todo: how to override DefaultTheme types correcly for IDEA ??? (see also styled.d.ts)
@@ -46,7 +46,6 @@ function Page() {
       await i18n.changeLanguage('en')
   }
 
-  console.log('lang', i18n.language)
   return (
     <div className="App">
       <StyledGlobalStyles /> {/* h1 styled */}
