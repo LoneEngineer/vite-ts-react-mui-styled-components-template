@@ -5,7 +5,6 @@ import {GlobalStyles, Stack, Switch, Theme, Typography} from '@mui/material'
 import {createGlobalStyle, css} from 'styled-components'
 import {useTranslation} from 'react-i18next'
 
-// todo: how to override DefaultTheme types correcly for IDEA ??? (see also styled.d.ts)
 const StyledGlobalStyles = createGlobalStyle`
   ${({theme}) => css`
     .MuiTypography-h1 {

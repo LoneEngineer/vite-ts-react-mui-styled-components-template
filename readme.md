@@ -21,12 +21,3 @@ Styling solution should support following features:
 * Docker
 * React hook forms
 
-# Unresolved issues
-
-IntelliJ IDEA still displays an error on custom global style (based on theme)
-because styled-component's DefaultTheme is empty and should be extended via
-['declaration merging'](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) feature.
-However, if I try to use ['client types'](https://vitejs.dev/guide/features.html#client-types) 
-when IDEA shows correct type for a theme but loses rest of declarations from 'styled-components' module.
-You can check src/styled.d.ts for this. If you know how to solve this issue - please let me know.
-

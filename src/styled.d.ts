@@ -1,7 +1,7 @@
-/// <reference types="@types/styled-components" />
+import 'styled-components'
+import {Theme} from '@mui/material'
 
-// todo: how to override DefaultTheme types correctly for IDEA ???
-//declare module 'styled-components' {
-//  export interface DefaultTheme extends import("@mui/material").Theme {
-//  }
-//}
+declare module 'styled-components' {
+  interface DefaultTheme extends Theme {
+  }
+}
