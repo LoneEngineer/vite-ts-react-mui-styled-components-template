@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string
-  readonly VITE_DEBUG_I18N: boolean
+  readonly VITE_DEBUG_I18N: string
   readonly VITE_APP_VERSION: string
   // more env variables...
 }
